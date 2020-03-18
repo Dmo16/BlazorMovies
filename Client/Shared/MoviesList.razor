@@ -1,0 +1,24 @@
+﻿@if (Movies == null)
+{
+    <img src="https://media0.giphy.com/media/6036p0cTnjUrNFpAlr/giphy.gif" />
+}
+else if (Movies.Count == 0)
+{
+    <text>There are no records to show</text>
+}
+else
+{
+    @for (var i = 0; i < Movies.Count; i++)
+    {
+        <div>
+            <p>@(i + 1)) Title: @((MarkupString)Movies[i].Title)</p>
+            <p>Release Date: <i>@Movies[i].ReleaseDate.ToString("yyyy-M-d dddd")</i></p>
+        </div>
+    }
+}
+
+@code 
+{
+    [Parameter] public List<Movie> Movies { get; set; }
+    
+}
