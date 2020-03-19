@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using BlazorMovies.Client.Helpers;
 
 namespace BlazorMovies.Client
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main(string[] args)
         {
@@ -15,8 +16,17 @@ namespace BlazorMovies.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddBaseAddressHttpClient();
+            ConfigureServices(builder.Services);
 
             await builder.Build().RunAsync();
+        }
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddOptions();
+            services.AddSingleton<SingletonService>();
+            services.AddTransient<TransientService>();
+            services.AddTransient<IRepository, RepositoryInMemory>();
+            
         }
     }
 }

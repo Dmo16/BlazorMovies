@@ -1,22 +1,24 @@
 ﻿@page "/"
+@inject SingletonService singleton
+@inject IRepository repository
 
 <div>
     <h3>Movie</h3>
-    <MoviesList />
-</div>
+    <MoviesList Movies="movies" />
+</div>    
 
-    
+<button @onclick="AddNewMovie">Add New Movie</button>
 
 @code 
 {
     private List<Movie> movies;
     protected override void OnInitialized()
     {
-        movies = new List<Movie>()
-        {
-            new Movie(){Title = "<b>Spider-Man: Far From Home</b>", ReleaseDate = new DateTime(2019, 7, 2)},
-            new Movie(){Title = "<i>Moana</i>", ReleaseDate = new DateTime(2016, 11, 23)},
-            new Movie() {Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16)}
-        };
+        movies = repository.GetMovies();
+    }
+
+    private void AddNewMovie()
+    {
+        movies.Add(new Movie() { Title = "Movie Sample", ReleaseDate = DateTime.Today });
     }
 }
