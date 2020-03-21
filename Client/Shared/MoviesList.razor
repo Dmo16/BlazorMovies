@@ -7,23 +7,37 @@
         <IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie" />
     </ElementTemplate>
 </GenericList>
+<Confirmation @ref="confirmation" onCancel="onCancel" onConfirm="onConfirm">
+    <div>Do you wish to delete @movieToBeDeleted.Title ?</div>
+</Confirmation>
 
 @code 
 {
+    Confirmation confirmation;
     [Parameter] public List<Movie> Movies { get; set; }
 
     bool displayButtons = false;
+    Movie movieToBeDeleted;
 
-    private async Task DeleteMovie(Movie movie)
+    private void DeleteMovie(Movie movie)
     {
-        await js.MyFunction("custom message");
+        movieToBeDeleted = movie;
+        confirmation.Show();
 
-        var confirm = await js.Confirm($"Are you sure you want to delete {movie.Title}?");
-        if (confirm)
-        {
-            Movies.Remove(movie);
-        }
 
+    }
+
+    void onConfirm()
+    {
+        Movies.Remove(movieToBeDeleted);
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
+
+    void onCancel()
+    {
+        confirmation.Hide();
+        movieToBeDeleted = null;
     }
 
     protected override void OnInitialized()

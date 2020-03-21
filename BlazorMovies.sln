@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMovies.Client", "Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMovies.Shared", "Shared\BlazorMovies.Shared.csproj", "{C822D3BF-F275-41F2-81C9-559BEBD86580}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockPaperScissors", "RockPaperScissors\RockPaperScissors.csproj", "{2CB43B91-D241-42A7-914B-30755F512ED8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C822D3BF-F275-41F2-81C9-559BEBD86580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C822D3BF-F275-41F2-81C9-559BEBD86580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C822D3BF-F275-41F2-81C9-559BEBD86580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB43B91-D241-42A7-914B-30755F512ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB43B91-D241-42A7-914B-30755F512ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB43B91-D241-42A7-914B-30755F512ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB43B91-D241-42A7-914B-30755F512ED8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

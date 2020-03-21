@@ -4,13 +4,14 @@
 
 <div>
     <h3>Movie</h3>
-    <MoviesList Movies="movies" />
+    <MoviesList  Movies="movies" />
 </div>    
 
 <button @onclick="AddNewMovie">Add New Movie</button>
 
 @code 
 {
+   
     private List<Movie> movies;
     protected override void OnInitialized()
     {
