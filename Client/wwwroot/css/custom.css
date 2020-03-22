@@ -1,0 +1,17 @@
+﻿.individual-movie-container {
+    margin-right: 2%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.individual-movie-container p {
+    max-width: 225px;
+    height: 44px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.movie-poster {
+    width: 225px;
+    height: 300px;
+}

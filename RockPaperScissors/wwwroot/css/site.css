@@ -181,3 +181,15 @@ app {
         display: block;
     }
 }
+
+
+.image {
+    width: 200px;
+    height: 200px;
+    transition: all .2s ease-in-out
+}
+
+.selectable-image:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

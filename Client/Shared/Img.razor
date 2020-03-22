@@ -1,0 +1,14 @@
+﻿<h3>Img</h3>
+
+@if (ImgUrl != null)
+{
+    <img src="@string.IsNullOrEmpty(ImgUrl)" />
+}
+else
+{
+    <img src="https://i0.wp.com/ultravires.ca/wp/wp-content/uploads/2018/03/Then-and-Now_-no-image-found.jpg?fit=275%2C275" />
+}
+
+@code {
+    [Parameter] public string ImgUrl { get; set; }
+}
