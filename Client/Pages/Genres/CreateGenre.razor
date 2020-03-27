@@ -1,8 +1,21 @@
 ﻿@page "/genre/create"
 
-<h3>CreateGenre</h3>
+<h3>Create Genre</h3>
 
+<EditForm Model="genre" OnSubmit="Create">
+    <div class="form-group">
+        <label>Name:</label>
+        <InputText class="form-control" @bind-Value="@genre.Name" />
+    </div>
+    <button class="btn-success" type="submit">Save Changes</button>
+</EditForm>
 
 @code {
-
+    //EditForm tag can't be passed a null value
+    private Genre genre = new Genre();
+    private void Create()
+    {
+        Console.WriteLine(genre.Name);
+    }
 }
+
