@@ -1,5 +1,25 @@
 ﻿@page "/people/edit/{PersonId:int}"
 
+
+@if (Person != null)
+{
+    <PersonForm Person="Person" OnValidSubmit="Edit" />
+}
+
 @code {
     [Parameter] public int PersonId { get; set; }
+
+    Person Person;
+
+    protected override void OnInitialized()
+    {
+        Person = new Person { Id = PersonId, Name = "Roger Dodger", DateOfBirth = DateTime.Today, Biography="Lorem Ipsum...", Picture= "https://vignette.wikia.nocookie.net/p__/images/b/b6/Rogerpoint.png/revision/latest/top-crop/width/360/height/450?cb=20131226032752&path-prefix=protagonist" };
+    }
+
+    private void Edit()
+    {
+        Console.WriteLine("Edit Person method");
+        Console.WriteLine($"ID = {Person.Id}");
+        Console.WriteLine($"Name = {Person.Name}");
+    }
 }

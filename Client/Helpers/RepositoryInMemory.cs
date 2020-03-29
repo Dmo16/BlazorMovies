@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlazorMovies.Shared.Entities;
 
-
 namespace BlazorMovies.Client.Helpers
 {
     public class RepositoryInMemory: IRepository
@@ -24,7 +23,7 @@ namespace BlazorMovies.Client.Helpers
                         Poster ="https://www.arthipo.com/image/cache/catalog/genel-tasarim/all-posters/sinema-cinema-film-postersleri/yabanci-filmler/1/pfilm1042-moana-26hwy6-film-movie-posters-cinema-kanvas-tablo-canvas-1000x1000.jpg"
                     },
                     new Movie() {
-                        Title = "Inception", 
+                        Title = "Inception",
                         ReleaseDate = new DateTime(2010, 7, 16),
                         Poster="https://posteritati.com/posters/000/000/057/626/inception-md-web.jpg"
                     }

@@ -21,7 +21,6 @@ namespace BlazorMovies.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
         }
 
@@ -37,12 +36,9 @@ namespace BlazorMovies.Server
             {
                 app.UseExceptionHandler("/Error");
             }
-
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

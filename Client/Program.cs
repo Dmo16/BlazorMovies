@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using BlazorMovies.Client.Helpers;
+using Blazor.FileReader;
 
 namespace BlazorMovies.Client
 {
@@ -25,7 +26,7 @@ namespace BlazorMovies.Client
             services.AddOptions();
 
             services.AddTransient<IRepository, RepositoryInMemory>();
-            
+            services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿
+    <EditForm Model="Person" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>Name:</label>
+            <InputText class="form-control" @bind-Value="@Person.Name" />
+            <ValidationMessage For="@(() => Person.Name)" />
+        </div>
+        <div class="form-group">
+            <label>Date of Birth:</label>
+            <InputDate class="form-control" @bind-Value="@Person.DateOfBirth" />
+            <ValidationMessage For="@(() => Person.DateOfBirth)" />
+        </div>
+
+
+        <div class="form-group">
+            <InputImage Label="Person Image" OnSelectedImage="PictureSelected" ImageURL="@imageURL"/>
+        </div>
+        <div class="form-group form-markdown">
+            <InputMarkdown 
+                           @bind-Value="Person.Biography"
+                           Label="Person Biography" 
+                           For="@(() => Person.Biography)" 
+                           />
+
+        </div>
+
+        <button class="btn btn-primary" type="submit">Create Person</button>
+    </EditForm>
+
+@code {
+    [Parameter] public Person Person { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    string imageURL;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Person.Picture))
+        {
+            //Person.Picture is not null then there is already a pic in the database
+            imageURL = Person.Picture;
+            //Sets the person.picture to null after assigning it to imageURL so that it isn't being pass on for each render.
+            Person.Picture = null;
+        }
+    }
+
+    private void PictureSelected(string imageBase64)
+    {
+        Person.Picture = imageBase64;
+        imageURL = null;
+        Console.WriteLine(imageBase64);
+    }
+}
