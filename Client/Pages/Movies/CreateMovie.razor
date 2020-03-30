@@ -1,5 +1,6 @@
 ﻿@page "/movie/create"
 @inject NavigationManager navMgr
+@inject IMoviesRepository moviesRepository
 
 
 <h3>Create Movie</h3>
@@ -16,10 +17,19 @@
         new Genre(){Id = 3, Name = "Drama"}
     };
 
-    private void SaveMovie()
+    private async Task SaveMovie()
     {
         //Saving Movie
         Console.WriteLine(navMgr.Uri);
         //navMgr.NavigateTo("movie");
+        try
+        {
+            var movieId = await moviesRepository.CreateMovie(Movie);
+            navMgr.NavigateTo($"movie/{movieId}/{Movie.Title.Replace(" ", "-")}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

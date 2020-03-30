@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using BlazorMovies.Client.Helpers;
 using Blazor.FileReader;
+using BlazorMovies.Client.Repository;
 
 namespace BlazorMovies.Client
 {
@@ -26,6 +27,10 @@ namespace BlazorMovies.Client
             services.AddOptions();
 
             services.AddTransient<IRepository, RepositoryInMemory>();
+            services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IMoviesRepository, MoviesRepository>();
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
         }
     }

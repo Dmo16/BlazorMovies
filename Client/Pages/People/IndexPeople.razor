@@ -3,7 +3,15 @@
 <h3>Index People</h3>
 
 <div class="form-group">
+    @try
+    {
+
     <a class="btn btn-info" href="/people/create">New Person</a>
+    }
+    catch(Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 </div>
 
 @code {
