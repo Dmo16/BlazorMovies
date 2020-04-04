@@ -1,4 +1,5 @@
 ﻿@page "/people"
+@inject IPersonRepository personRepo
 
 <h3>Index People</h3>
 
@@ -6,14 +7,59 @@
     @try
     {
 
-    <a class="btn btn-info" href="/people/create">New Person</a>
+        <a class="btn btn-info" href="/people/create">New Person</a>
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
         Console.WriteLine(ex.Message);
     }
 </div>
 
-@code {
+@try
+{
+    <GenericList List="People">
+        <WholeListTemplate>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in People)
+                    {
+                        <tr>
+                            <td>
+                                <a class="btn btn-success" href="/people/edit/@item.Id">Edit</a>
+                                <button class="btn btn-danger">Delete</button>
+                            </td>
+                            <td>@item.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </WholeListTemplate>
+    </GenericList>
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
+@code {
+    List<Person> People;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            People = await personRepo.GetPeople();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+    }
 }

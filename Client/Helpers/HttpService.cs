@@ -38,6 +38,17 @@ namespace BlazorMovies.Client.Helpers
 
         #endregion
 
+        #region [PUT Methods]
+        public async Task<HttpResponseWrapper<object>> Put<T>(string url, T data)
+        {
+            var dataJson = JsonSerializer.Serialize(data);
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(url, stringContent);
+            return new HttpResponseWrapper<object>(null, response.IsSuccessStatusCode, response);
+        }
+
+
+        #endregion
 
         #region [POST Methods]
 

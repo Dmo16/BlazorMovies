@@ -1,4 +1,6 @@
 ﻿@page "/people/edit/{PersonId:int}"
+@inject IPersonRepository personRepo
+@inject NavigationManager navMgr
 
 
 @if (Person != null)
@@ -9,17 +11,16 @@
 @code {
     [Parameter] public int PersonId { get; set; }
 
-    Person Person;
+    private Person Person;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        Person = new Person { Id = PersonId, Name = "Roger Dodger", DateOfBirth = DateTime.Today, Biography="Lorem Ipsum...", Picture= "https://vignette.wikia.nocookie.net/p__/images/b/b6/Rogerpoint.png/revision/latest/top-crop/width/360/height/450?cb=20131226032752&path-prefix=protagonist" };
+        Person = await personRepo.GetPersonById(PersonId);
     }
 
-    private void Edit()
+    private async Task Edit()
     {
-        Console.WriteLine("Edit Person method");
-        Console.WriteLine($"ID = {Person.Id}");
-        Console.WriteLine($"Name = {Person.Name}");
+        await personRepo.UpdatePerson(Person);
+        navMgr.NavigateTo("people");
     }
 }
