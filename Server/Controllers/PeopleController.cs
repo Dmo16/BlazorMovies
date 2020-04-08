@@ -1,4 +1,7 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using AutoMapper;
+using BlazorMovies.Server.Helpers;
+using BlazorMovies.Shared.DTOs;
+using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,26 +13,32 @@ namespace BlazorMovies.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PeopleController :ControllerBase
+    public class PeopleController : ControllerBase
     {
         private readonly ApplicationDbContext context;
-        public PeopleController(ApplicationDbContext context)
+        private readonly IMapper mapper;
+
+
+        public PeopleController(ApplicationDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> Get()
+        public async Task<ActionResult<List<Person>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            return await context.People.ToListAsync();
+            var queryable = context.People.AsQueryable();
+            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
+            return await queryable.Paginate(paginationDTO).ToListAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Person>> Get(int id)
         {
             var person = await context.People.FirstOrDefaultAsync(x => x.Id == id);
             if (person == null) { return NotFound(); }
-            return NoContent();
+            return person;
         }
 
         [HttpGet("search/{searchText}")]
@@ -54,7 +63,27 @@ namespace BlazorMovies.Server.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Person person)
         {
-            context.Attach(person).State = EntityState.Modified;
+            var personDB = await context.People.FirstOrDefaultAsync(x => x.Id == person.Id);
+
+            if (personDB == null) { return NotFound(); }
+
+            personDB = mapper.Map(person, personDB);
+
+            if (!string.IsNullOrWhiteSpace(person.Picture))
+            {
+                //update picture
+            }
+
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int Id)
+        {
+            var genre = await context.People.FirstOrDefaultAsync(x => x.Id == Id);
+            if (genre == null) { return NotFound(); }
+            context.Remove(genre);
             await context.SaveChangesAsync();
             return NoContent();
         }

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BlazorMovies.Client.Helpers;
 using Blazor.FileReader;
 using BlazorMovies.Client.Repository;
+using Microsoft.AspNetCore.Components.Authorization;
+using BlazorMovies.Client.Auth;
 
 namespace BlazorMovies.Client
 {
@@ -32,6 +34,9 @@ namespace BlazorMovies.Client
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IMoviesRepository, MoviesRepository>();
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
+            services.AddAuthorizationCore();
+
+            services.AddScoped<AuthenticationStateProvider, DummyAuthenticationStateProvider>();
         }
     }
 }

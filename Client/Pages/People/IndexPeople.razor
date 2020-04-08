@@ -15,6 +15,8 @@
     }
 </div>
 
+<Pagination CurrentPage="@paginationDTO.Page" TotalAmountPages="totalAmountPages" SelectedPage="SelectedPage" />
+
 @try
 {
     <GenericList List="People">
@@ -32,7 +34,7 @@
                         <tr>
                             <td>
                                 <a class="btn btn-success" href="/people/edit/@item.Id">Edit</a>
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-danger" @onclick="@(() => DeletePerson(item.Id))">Delete</button>
                             </td>
                             <td>@item.Name</td>
                         </tr>
@@ -48,18 +50,44 @@ catch (Exception ex)
 }
 
 @code {
-    List<Person> People;
+        List<Person> People;
+        PaginationDTO paginationDTO = new PaginationDTO() { RecordsPerPage = 1 };
+    private int totalAmountPages;
+
+
+
+
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            People = await personRepo.GetPeople();
+            await LoadPeople();
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
 
+    }
+
+    private async Task LoadPeople()
+    {
+        var paginatedResponse = await personRepo.GetPeople(paginationDTO);
+        People = paginatedResponse.Response;
+        totalAmountPages = paginatedResponse.TotalAmountPages;
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        paginationDTO.Page = page;
+        await LoadPeople();
+    }
+
+
+    private async Task DeletePerson(int Id)
+    {
+        await personRepo.DeletePerson(Id);
+        await LoadPeople();
     }
 }

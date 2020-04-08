@@ -48,5 +48,15 @@ namespace BlazorMovies.Server.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int Id)
+        {
+            var genre = await context.Genres.FirstOrDefaultAsync(x => x.Id == Id);
+            if (genre == null) { return NotFound();  }
+            context.Remove(genre);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
     }
 }
