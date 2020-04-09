@@ -3,6 +3,7 @@ using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.DTOs;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -115,7 +116,9 @@ namespace BlazorMovies.Server.Controllers
 
         }
 
+
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IndexPageDTO>> Get()
         {
             var limit = 6;

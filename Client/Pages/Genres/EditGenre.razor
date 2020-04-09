@@ -1,12 +1,13 @@
 ﻿@page "/genre/edit/{GenreId:int}"
 @inject IGenreRepository genreRepo
 @inject NavigationManager navMgr
+@attribute [Authorize]
 
 <h3>Edit Genre</h3>
 
 @if (genre != null)
 {
-<GenreForm Genre="genre" OnValidSubmit="Edit" />
+    <GenreForm Genre="genre" OnValidSubmit="Edit" />
 }
 
 @code {
@@ -19,7 +20,7 @@
         genre = await genreRepo.GetGenre(GenreId);
     }
 
-        private void Edit()
+    private void Edit()
     {
         genreRepo.UpdateGenre(genre);
         navMgr.NavigateTo("genres");

@@ -33,10 +33,18 @@ namespace BlazorMovies.Client
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IAccountsRepository, AccountsRepository>();
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
             services.AddAuthorizationCore();
 
-            services.AddScoped<AuthenticationStateProvider, DummyAuthenticationStateProvider>();
+            //Need to use single state of JWT Auth State, so that each service is pulling from the same one.            
+            services.AddScoped<JWTAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider, JWTAuthenticationStateProvider>(
+                provider => provider.GetRequiredService<JWTAuthenticationStateProvider>()
+                );//pulls from line already registered provider
+            services.AddScoped<ILoginService, JWTAuthenticationStateProvider>(
+                provider => provider.GetRequiredService<JWTAuthenticationStateProvider>()
+                );//pulls from line already registered provider
         }
     }
 }

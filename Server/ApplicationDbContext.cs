@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using BlazorMovies.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using BlazorMovies.Shared.Entities.Relations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BlazorMovies.Server
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -16,9 +17,7 @@ namespace BlazorMovies.Server
         {
             //EF Core configurations
 
-        }
-
-        
+        }        
         
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

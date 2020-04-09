@@ -1,6 +1,7 @@
 ﻿@page "/movie/{MovieId:int}"
 @page "/movie/{MovieId:int}/{MovieName}"
 @inject IMoviesRepository movieRepo
+@attribute [Authorize]
 
 <h3>Details Movie</h3>
 

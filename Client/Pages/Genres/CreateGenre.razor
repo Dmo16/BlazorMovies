@@ -1,16 +1,17 @@
 ﻿@page "/genre/create"
 @inject IGenreRepository genreRepository
 @inject NavigationManager navMgr
+@attribute [Authorize]
 
 <h3>Create Genre</h3>
 
-<GenreForm Genre="genre" OnValidSubmit="Create"/>
+<GenreForm Genre="genre" OnValidSubmit="Create" />
 
 
 @code {
     //EditForm tag can't be passed a null value
     private Genre genre = new Genre();
-    
+
     private async Task Create()
     {
         Console.WriteLine("Create method");

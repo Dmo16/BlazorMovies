@@ -1,6 +1,7 @@
 ﻿@page "/"
 @page "/index"
 @inject IMoviesRepository moviesRepo
+@attribute [Authorize]
 
 
 
@@ -30,7 +31,7 @@
 
     private async Task<IEnumerable<string>> SearchMethod(string searchText)
     {
-        
+
         if (searchText == "test") { return Enumerable.Empty<string>(); }
         return new List<string>() { "Felipe", "Gavilanch2" };
     }
